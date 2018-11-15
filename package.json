@@ -1,26 +1,18 @@
 {
-  "name": "repo-templete",
+  "name": "growth-base",
   "version": "1.0.0",
-  "description": "a templete for you to code by modern js technology",
+  "description": "some examples",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config  ./build/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack  --config ./build/webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Liugq5713/repo-templete.git"
-  },
   "keywords": [
     "templete"
   ],
   "author": "liugq",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Liugq5713/repo-templete/issues"
-  },
-  "homepage": "https://github.com/Liugq5713/repo-templete#readme",
   "dependencies": {
     "normalize.css": "^8.0.0"
   },
@@ -66,5 +58,13 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Liugq5713/growth-base.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Liugq5713/growth-base/issues"
+  },
+  "homepage": "https://github.com/Liugq5713/growth-base#readme"
 }
