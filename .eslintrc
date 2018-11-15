@@ -1,9 +1,6 @@
 {
-  "extends": ["standard", "prettier"],
-  "plugins": ["prettier", "import"],
-  "rules": {
-    "prettier/prettier": "error"
-  },
+  "extends": ["standard"],
+  "plugins": ["import"],
   "globals": {
     "window": false,
     "document": false
