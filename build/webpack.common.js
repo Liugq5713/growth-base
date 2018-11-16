@@ -3,13 +3,32 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const glob = require('glob')
 
+const entries = glob.sync('./src/pages/**/index.js')
+console.log('entries', entries)
+const entry = {}
+const htmlPlugins = []
 const dev = process.env.NODE_ENV !== 'production'
 
+for (const path of entries) {
+  const template = path.replace('index.js', 'index.html')
+  const chunkName = path.slice('./src/pages/'.length, -'/index.js'.length)
+  entry[chunkName] = dev ? [path, template] : path
+  htmlPlugins.push(
+    new HtmlWebpackPlugin({
+      template,
+      filename: chunkName + '.html',
+      chunksSortMode: 'none',
+      chunks: [chunkName]
+    })
+  )
+}
+
 module.exports = {
-  entry: './src/index.js',
+  entry: entry,
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: dev ? '[name].js' : '[chunkhash].js',
     chunkFilename: '[chunkhash].js'
   },
@@ -45,7 +64,30 @@ module.exports = {
         ]
       },
       {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              attrs: ['img:src', 'link:href']
+            }
+          }
+        ]
+      },
+      {
+        test: /favicon\.png$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[hash].[ext]'
+            }
+          }
+        ]
+      },
+      {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
+        exclude: /favicon\.png$/,
         use: [
           {
             loader: 'url-loader',
@@ -62,15 +104,12 @@ module.exports = {
     new CleanWebpackPlugin(['dist'], {
       root: process.cwd()
     }),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src/index.html'),
-      favicon: path.resolve(__dirname, '../favicon.png')
-    }),
     new webpack.HashedModuleIdsPlugin(),
     new MiniCssExtractPlugin({
       filename: dev ? '[name].css' : '[name].[hash].css',
       chunkFilename: dev ? '[id].css' : '[id].[hash].css'
-    })
+    }),
+    ...htmlPlugins
   ],
   optimization: {
     runtimeChunk: true,
