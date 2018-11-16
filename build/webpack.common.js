@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin')
 const glob = require('glob')
 
 const entries = glob.sync('./src/pages/**/index.js')
@@ -25,6 +26,7 @@ for (const path of entries) {
   )
 }
 
+console.log('entry', entry)
 module.exports = {
   entry: entry,
   output: {
@@ -33,7 +35,7 @@ module.exports = {
     chunkFilename: '[chunkhash].js'
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
     alias: {
       '@': path.resolve('src')
     }
@@ -42,7 +44,6 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        enforce: 'pre',
         exclude: /node_modules/,
         loader: 'eslint-loader',
         include: [path.join(__dirname, '../src')],
@@ -109,6 +110,8 @@ module.exports = {
       filename: dev ? '[name].css' : '[name].[hash].css',
       chunkFilename: dev ? '[id].css' : '[id].[hash].css'
     }),
+
+    new HtmlWebpackIncludeSiblingChunksPlugin(),
     ...htmlPlugins
   ],
   optimization: {

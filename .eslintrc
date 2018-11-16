@@ -5,6 +5,7 @@
     "window": false,
     "document": false
   },
+  "rules": { "space-before-function-paren": 0 },
   "settings": {
     "import/resolver": {
       "webpack": {

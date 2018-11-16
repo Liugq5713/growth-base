@@ -1,5 +1,5 @@
 class Time {
-  constructor (time = Date.now()) {
+  constructor(time = Date.now()) {
     if (typeof time === 'object') {
       this.Date = time
     } else {
@@ -9,7 +9,7 @@ class Time {
       this.Date = new Date(time)
     }
   }
-  _parseDate (Date) {
+  _parseDate(Date) {
     return {
       y: Date.getFullYear(),
       m: Date.getMonth() + 1,
@@ -20,7 +20,7 @@ class Time {
       a: Date.getDay()
     }
   }
-  parseTime (format = '{y}-{m}-{d} {h}:{i}:{s}') {
+  parseTime(format = '{y}-{m}-{d} {h}:{i}:{s}') {
     const Date = this._parseDate(this.Date)
     return format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
       let value = Date[key]
