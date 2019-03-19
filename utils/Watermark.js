@@ -182,25 +182,25 @@ class Watermark {
       console.error('el is ' + document.querySelector(el))
       return
     }
-    const contain_el = document.querySelector(el)
+    const containEl = document.querySelector(el)
 
-    const watermark_img = this._compositeStamp()
+    const watermarkImg = this._compositeStamp()
 
-    const watermark_div = document.createElement('div')
-    watermark_div.setAttribute(
+    const watermarkDiv = document.createElement('div')
+    watermarkDiv.setAttribute(
       'style',
       `
       position:absolute;
       width: 100%;
       height: 100%;
-      background-image:url('${watermark_img}');
+      background-image:url('${watermarkImg}');
       opacity:0.6;
       z-index:${this.zIndex};
       pointer-events: none;
     `
     )
-    contain_el.style.position = 'relative'
-    contain_el.insertBefore(watermark_div, contain_el.firstChild)
+    containEl.style.position = 'relative'
+    containEl.insertBefore(watermarkDiv, containEl.firstChild)
   }
 }
 export default Watermark

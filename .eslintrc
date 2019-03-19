@@ -3,7 +3,9 @@
   "plugins": ["import"],
   "globals": {
     "window": false,
-    "document": false
+    "document": false,
+    "FileReader":false,
+    "Image":false
   },
   "rules": { "space-before-function-paren": 0 },
   "settings": {
