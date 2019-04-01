@@ -15,7 +15,11 @@ function loadImage(imgSrc) {
   })
 }
 
-async function addWaterMarkToPic(sImage, wImage, config) {
+async function addWaterMarkToPic(
+  sImage,
+  wImage,
+  { wWidth = 100, wHeight = 100 } = {}
+) {
   const sImg = await loadImage(sImage)
   const wImg = await loadImage(wImage)
 
@@ -30,12 +34,12 @@ async function addWaterMarkToPic(sImage, wImage, config) {
 
   const wCanvas = document.createElement('canvas')
   const wCtx = wCanvas.getContext('2d')
-  wCanvas.width = w
-  wCanvas.height = h
-  wImg.setAttribute('width', 200)
-  wImg.setAttribute('height', 200)
-  console.log('wImg', wImg)
-  sCtx.fillStyle = wCtx.createPattern(wImg, 'repeat')
+  wCanvas.width = wWidth
+  wCanvas.height = wHeight
+  wCtx.drawImage(wImg, 0, 0, wImg.width, wImg.height, 0, 0, wWidth, wHeight)
+
+  sCtx.fillStyle = wCtx.createPattern(wCanvas, 'repeat')
+  // sCtx.fillStyle = wCtx.createPattern(wImg, 'repeat')
   sCtx.fillRect(0, 0, w, h)
 
   const finalResult = sCanvas.toDataURL()
@@ -43,4 +47,4 @@ async function addWaterMarkToPic(sImage, wImage, config) {
   return finalResult
 }
 
-addWaterMarkToPic(s, blackOblique)
+addWaterMarkToPic(s, blackOblique, { wWidth: 200, wHeight: 200 })
