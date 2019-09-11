@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    hello
+    <script>
+      function suggest_so(val) {
+        console.log("val", val)
+      }
+      var script_el = document.createElement("script")
+      var word = "中国"
+      script_el.src = `https://sug.so.360.cn/suggest?word=${word}&callback=suggest_so`
+      document.body.insertBefore(script_el, document.body.firstChild)
+      script_el.onload = function(val) {
+        console.log("val", val)
+      }
+    </script>
+  </body>
+</html>
