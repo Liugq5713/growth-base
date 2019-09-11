@@ -1,6 +1,4 @@
 import Time from './time'
-
-const app = document.querySelector('#app')
-
-const time = new Time().parseTime()
+var app = document.querySelector('#app')
+var time = new Time().parseTime()
 app.innerHTML = time

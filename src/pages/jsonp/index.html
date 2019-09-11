@@ -14,8 +14,10 @@
       }
       var script_el = document.createElement("script")
       var word = "中国"
-      script_el.src = `https://sug.so.360.cn/suggest?word=${word}&callback=suggest_so`
+      script_el.src = `https://sug.so.360.cn/suggest?word=${word}&callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word`
       document.body.insertBefore(script_el, document.body.firstChild)
+
+      // 通过监听script元素的load事件来监听请求是否完成，以及给script添加了error事件
       script_el.onload = function(val) {
         console.log("val", val)
       }

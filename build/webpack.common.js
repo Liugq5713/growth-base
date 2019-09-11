@@ -7,7 +7,6 @@ const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibl
 const glob = require('glob')
 
 const entries = glob.sync('./src/pages/**/index.js')
-console.log('entries', entries)
 const entry = {}
 const htmlPlugins = []
 const dev = process.env.NODE_ENV !== 'production'
